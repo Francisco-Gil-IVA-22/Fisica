@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Maestra de Física Fundamental - IV Unidad | Don Bosco</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Integración de MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fun-font { font-family: 'Fredoka', cursive, sans-serif; }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 28s linear infinite;
+        }
+
+        @keyframes popSurprise {
+            0% { transform: scale(0.3) translateY(100px) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.1) translateY(-10px) rotate(3deg); opacity: 1; }
+            70% { transform: scale(0.95) translateY(0) rotate(-1deg); }
+            100% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+        }
+
+        .pop-toast {
+            animation: popSurprise 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- CONTENEDOR DE POP-UPS CÓMICOS -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-xs md:max-w-sm pointer-events-none"></div>
+
+    <!-- MARQUESINA ANIMADA -->
+    <div class="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 text-slate-950 font-black text-xs py-2 shadow-lg border-b-2 border-cyan-300">
+        <div class="animate-marquee flex items-center gap-8">
+            <span>⚡ FÍSICA FUNDAMENTAL - PROFE ALDO MONROY:</span>
+            <span>📏 ¡Ojo! Pasa los centímetros a metros antes de meter los datos a la calculadora</span>
+            <span>🏗️ En torque no olvides fijar el pivote ($\sum \tau = 0$)</span>
+            <span>🌕 $g_{\text{Luna}} = 1.62\text{ m/s}^2$ | Everest: $g = 9.77\text{ m/s}^2$</span>
+            <span>🏎️ Rodadura sin deslizamiento: $v = r \cdot \omega$</span>
+            <span>📝 Criterio de evaluación: Procedimiento (2 pts) + Respuesta correcta (2 pts)</span>
+        </div>
+    </div>
+
+    <!-- HEADER / HERO -->
+    <header class="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 border-b-4 border-cyan-400 shadow-2xl relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 py-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="bg-cyan-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        4to Bachillerato • Don Bosco • Física 1
+                    </span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-white mt-3 fun-font tracking-wide">
+                        Laboratorio de <span class="text-cyan-400">Física</span> ⚛️
+                    </h1>
+                    <p class="text-cyan-200 mt-2 text-sm md:text-base font-medium">
+                        Solucionario paso a paso de los 12 ejercicios del libro por Francisco (Cabrón) Gil.
+                    </p>
+                </div>
+                <div class="bg-indigo-900/80 p-4 rounded-2xl border-2 border-cyan-400 text-center min-w-[180px] shadow-2xl transform rotate-1">
+                    <i class="fa-solid fa-atom text-4xl text-cyan-400 mb-1 animate-spin"></i>
+                    <p class="text-xs text-indigo-200 font-bold uppercase">Profe: Aldo Monroy</p>
+                    <p class="text-base font-black text-white">10 / 10 Puntos</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-8 space-y-10">
+
+        <!-- RESUMEN DE FÓRMULAS RÁPIDAS -->
+        <div class="bg-slate-900/90 border-2 border-cyan-500/50 p-5 rounded-3xl shadow-2xl space-y-3">
+            <h3 class="text-lg font-black text-cyan-300 fun-font flex items-center gap-2">
+                <i class="fa-solid fa-key"></i> Formulario Esencial para el Examen
+            </h3>
+            <div class="grid md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                    <span class="text-amber-400 font-bold block">1. Gravitación Universal</span>
+                    <p class="text-slate-300 mt-1">$F = G \frac{m_1 m_2}{r^2}$</p>
+                    <p class="text-slate-300">$g = G \frac{M}{r^2}$</p>
+                    <p class="text-slate-400 text-[10px]">$G = 6.67 \times 10^{-11}\text{ N}\cdot\text{m}^2/\text{kg}^2$</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                    <span class="text-amber-400 font-bold block">2. Rotación y Torque</span>
+                    <p class="text-slate-300 mt-1">Longitud de arco: $s = r \theta$</p>
+                    <p class="text-slate-300">Rodadura sin resbalar: $v = r \omega$</p>
+                    <p class="text-slate-300">Torque: $\tau = F \cdot d \cdot \sin\theta$</p>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                    <span class="text-amber-400 font-bold block">3. Inercia y 2da Ley Rotacional</span>
+                    <p class="text-slate-300 mt-1">Disco / Cilindro: $I = \frac{1}{2} M R^2$</p>
+                    <p class="text-slate-300">Esfera sólida: $I = \frac{2}{5} M R^2$</p>
+                    <p class="text-slate-300">Torque Neto: $\tau = I \alpha$</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOQUE 1: GRAVITACIÓN -->
+        <section class="bg-slate-900/90 rounded-3xl border-2 border-indigo-700/60 overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-indigo-900 via-blue-900 to-slate-900 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-cyan-400 text-slate-950 font-black text-xs w-8 h-8 rounded-full flex items-center justify-center shadow-lg">1</span>
+                    <h2 class="text-lg md:text-xl font-bold fun-font">Contenido 1: Fuerza Gravitacional (Ejercicios 80, 83, 84)</h2>
+                </div>
+                <i class="fa-solid fa-globe text-cyan-400 text-2xl"></i>
+            </div>
+
+            <div class="p-6 space-y-6 text-xs">
+
+                <!-- Ejercicio 80 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-indigo-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 80 - Pág. 253</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Aceleración de la gravedad en la superficie de la Luna ($g_M$)</h3>
+                    <p class="text-slate-300"><strong>Datos conocidos del libro:</strong> Masa de la Luna $M_M = 7.35 \times 10^{22}\text{ kg}$, Radio de la Luna $R_M = 1.74 \times 10^6\text{ m}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>$$g_M = \frac{G \cdot M_M}{R_M^2} = \frac{(6.67 \times 10^{-11}) \cdot (7.35 \times 10^{22})}{(1.74 \times 10^6)^2}$$</p>
+                        <p>$$g_M = \frac{4.90245 \times 10^{12}}{3.0276 \times 10^{12}} \approx \mathbf{1.62\text{ m/s}^2}$$</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 83 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-indigo-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 83 - Pág. 253</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Fuerza neta sobre una masa en la esquina de un cuadrado</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Cuatro masas $m = 25\text{ kg}$ en esquinas de un cuadrado de $L = 1.0\text{ m}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Las dos masas adyacentes atraen con fuerza $F_1 = F_2 = \frac{G m^2}{L^2} = \frac{(6.67 \times 10^{-11})(25)^2}{(1.0)^2} = 4.16875 \times 10^{-8}\text{ N}$.</p>
+                        <p>• La masa opuesta (en la diagonal $d = \sqrt{2}\text{ m}$) atrae con $F_3 = \frac{G m^2}{2 L^2} = \frac{F_1}{2} = 2.08437 \times 10^{-8}\text{ N}$.</p>
+                        <p>• La resultante de $F_1$ y $F_2$ apunta a lo largo de la diagonal: $F_{12} = \sqrt{F_1^2 + F_2^2} = F_1 \sqrt{2} \approx 5.8955 \times 10^{-8}\text{ N}$.</p>
+                        <p>• Fuerza neta total: $F_{\text{neta}} = F_{12} + F_3 = (5.8955 + 2.0844) \times 10^{-8}\text{ N} \approx \mathbf{7.98 \times 10^{-8}\text{ N}}$ (dirigida hacia el centro del cuadrado).</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 84 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-indigo-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 84 - Pág. 253</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Gravedad en la cima del monte Everest ($h = 8.80\text{ km} = 8800\text{ m}$)</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Masa de la Tierra $M_T = 5.97 \times 10^{24}\text{ kg}$, Radio medio de la Tierra $R_T = 6.37 \times 10^6\text{ m}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Distancia total al centro de la Tierra: $r = R_T + h = 6.37 \times 10^6 + 8.80 \times 10^3 = 6.3788 \times 10^6\text{ m}$.</p>
+                        <p>$$g = \frac{G \cdot M_T}{r^2} = \frac{(6.67 \times 10^{-11})(5.97 \times 10^{24})}{(6.3788 \times 10^6)^2} = \frac{3.982 \times 10^{14}}{4.0689 \times 10^{13}} \approx \mathbf{9.79\text{ m/s}^2}$$</p>
+                        <p class="text-slate-400 text-[11px]">(Con 3 cifras significativas da $9.77\text{ m/s}^2$ si se toma $R_T = 6.38 \times 10^6\text{ m}$).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOQUE 2: MOVIMIENTO ROTACIONAL Y CILINDROS -->
+        <section class="bg-slate-900/90 rounded-3xl border-2 border-cyan-700/60 overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-cyan-900 via-blue-900 to-indigo-900 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-cyan-400 text-slate-950 font-black text-xs w-8 h-8 rounded-full flex items-center justify-center shadow-lg">2</span>
+                    <h2 class="text-lg md:text-xl font-bold fun-font">Contenido 2: Traslación y Rotación (Ejercicios 10, 12, 13)</h2>
+                </div>
+                <i class="fa-solid fa-rotate text-cyan-400 text-2xl"></i>
+            </div>
+
+            <div class="p-6 space-y-6 text-xs">
+
+                <!-- Ejercicio 10 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-cyan-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 10 - Pág. 288</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Longitud de cuerda que pasa por una polea</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> $r = 6.5\text{ cm} = 0.065\text{ m}$, vueltas $N = 4$ ($\theta = 4 \times 2\pi = 8\pi\text{ rad}$).</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>$$s = r \cdot \theta = (6.5\text{ cm}) \cdot (8\pi) \approx 163.36\text{ cm} = \mathbf{1.63\text{ m}}$$</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 12 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-cyan-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 12 - Pág. 288</span>
+                    <h3 class="font-bold text-amber-400 text-sm">¿La bola de bolos rueda sin deslizarse?</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> $r = 15.0\text{ cm} = 0.15\text{ m}$, $v_{\text{cm}} = 3.60\text{ m/s}$, $N = 7.50\text{ rev}$ en $t = 2.00\text{ s}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Rapidez angular: $\omega = \frac{7.50 \times 2\pi\text{ rad}}{2.00\text{ s}} = 7.5\pi \approx 23.56\text{ rad/s}$.</p>
+                        <p>• Rapidez tangencial para rodadura sin deslizarse: $v = r \cdot \omega = (0.15\text{ m}) \cdot (23.56\text{ rad/s}) \approx 3.534\text{ m/s}$.</p>
+                        <p>• Redondeando a dos cifras significativas: $v = 3.5\text{ m/s}$ frente a $v_{\text{cm}} = 3.6\text{ m/s}$. Son muy cercanas.</p>
+                        <p>• <strong class="text-emerald-400">Respuesta: Sí, dentro del límite de dos cifras significativas, la bola rueda sin deslizarse.</strong></p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 13 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-cyan-900/80 text-cyan-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 13 - Pág. 288</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Rapidez angular de la esfera en rodadura</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> $r = 15\text{ cm} = 0.15\text{ m}$, $v_{\text{cm}} = 0.25\text{ m/s}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>$$\omega = \frac{v_{\text{cm}}}{r} = \frac{0.25\text{ m/s}}{0.15\text{ m}} = \mathbf{1.67\text{ rad/s}}$$</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOQUE 3: TORQUE Y EQUILIBRIO -->
+        <section class="bg-slate-900/90 rounded-3xl border-2 border-amber-600/60 overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-amber-900 via-orange-900 to-slate-900 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-cyan-400 text-slate-950 font-black text-xs w-8 h-8 rounded-full flex items-center justify-center shadow-lg">3</span>
+                    <h2 class="text-lg md:text-xl font-bold fun-font">Contenido 3: Torque, Equilibrio y Estabilidad (Ejercicios 26, 43, 44)</h2>
+                </div>
+                <i class="fa-solid fa-balance-scale text-cyan-400 text-2xl"></i>
+            </div>
+
+            <div class="p-6 space-y-6 text-xs">
+
+                <!-- Ejercicio 26 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-amber-900/80 text-amber-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 26 - Pág. 290</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Fuerza mínima para aflojar el tapón del motor</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Torque $\tau = 25\text{ N}\cdot\text{m}$, brazo de palanca típico $r \approx 0.25\text{ m}$ (o expresado en función de la longitud $L$ de la llave).</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• La fuerza mínima se aplica perpendicularmente ($\sin 90^\circ = 1$): $F_{\text{mín}} = \frac{\tau}{r}$.</p>
+                        <p>• Para una llave estándar de $25\text{ cm} = 0.25\text{ m}$: $F_{\text{mín}} = \frac{25\text{ N}\cdot\text{m}}{0.25\text{ m}} = \mathbf{100\text{ N}}$.</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 43 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-amber-900/80 text-amber-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 43 - Pág. 290 (Figura 8.40)</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Pintor en la tabla sobre el andamio</h3>
+                    <p class="text-slate-300"><strong>Datos de la figura:</strong> Masa del pintor $m_p = 70\text{ kg}$, masa de la tabla $m_t = 15\text{ kg}$. Longitud de soportes: voladizo de $1.5\text{ m}$, centro de $2.5\text{ m}$, voladizo derecho de $1.5\text{ m}$ (Longitud total $L = 5.5\text{ m}$).</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Soportes ubicados en $x_1 = 1.5\text{ m}$ y $x_2 = 4.0\text{ m}$. El centro de gravedad de la tabla está en el punto medio $x_{\text{cg}} = 2.75\text{ m}$.</p>
+                        <p>• Al límite de inclinarse sobre el soporte izquierdo ($x_1 = 1.5\text{ m}$), la fuerza normal en el soporte derecho se hace cero ($N_2 = 0$).</p>
+                        <p>• Suma de torques respecto al pivote izquierdo ($x_1 = 1.5\text{ m}$):</p>
+                        <p>$$\sum \tau = m_p \cdot g \cdot (1.5 - x) - m_t \cdot g \cdot (2.75 - 1.5) = 0$$</p>
+                        <p>$$70 \cdot (1.5 - x) = 15 \cdot (1.25) = 18.75 \implies 1.5 - x = \frac{18.75}{70} \approx 0.268\text{ m}$$</p>
+                        <p>• Distancia mínima al extremo izquierdo: $x = 1.5 - 0.268 = \mathbf{1.23\text{ m}}$ (o a $0.27\text{ m}$ del soporte).</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 44 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-amber-900/80 text-amber-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 44 - Pág. 291 (Figura 8.41)</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Tensiones en las cuerdas que sostienen la masa</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Masa suspendida $m = 1.5\text{ kg} \implies W = m g = (1.5)(9.8) = 14.7\text{ N}$. Cuerda 1 a $45^\circ$ hacia la izquierda-arriba, Cuerda 2 a $30^\circ$ hacia la derecha-abajo.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Ecuaciones de equilibrio ($\sum F_x = 0$, $\sum F_y = 0$):</p>
+                        <p>$$\sum F_x = -T_1 \cos 45^\circ + T_2 \cos 30^\circ = 0 \implies T_1 (0.7071) = T_2 (0.8660) \implies T_1 = 1.2247 T_2$$</p>
+                        <p>$$\sum F_y = T_1 \sin 45^\circ - T_2 \sin 30^\circ - W = 0$$</p>
+                        <p>• Sustituyendo $T_1$: $(1.2247 T_2)(0.7071) - 0.5 T_2 = 14.7 \implies 0.866 T_2 - 0.5 T_2 = 14.7 \implies 0.366 T_2 = 14.7$</p>
+                        <p>• <strong class="text-emerald-400">$T_2 = \frac{14.7}{0.366} \approx \mathbf{40.16\text{ N}}$</strong></p>
+                        <p>• <strong class="text-emerald-400">$T_1 = 1.2247 \times 40.16 \approx \mathbf{49.18\text{ N}}$</strong></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOQUE 4: MOMENTO DE INERCIA Y DINÁMICA ROTACIONAL -->
+        <section class="bg-slate-900/90 rounded-3xl border-2 border-purple-700/60 overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="bg-cyan-400 text-slate-950 font-black text-xs w-8 h-8 rounded-full flex items-center justify-center shadow-lg">4</span>
+                    <h2 class="text-lg md:text-xl font-bold fun-font">Contenido 4: Momento de Inercia (Ejercicios 55, 59, 62)</h2>
+                </div>
+                <i class="fa-solid fa-compact-disc text-cyan-400 text-2xl"></i>
+            </div>
+
+            <div class="p-6 space-y-6 text-xs">
+
+                <!-- Ejercicio 55 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-purple-900/80 text-purple-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 55 - Pág. 291</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Aceleración angular de la polea sólida</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Torque neto $\tau = 6.4\text{ N}\cdot\text{m}$, masa $M = 0.15\text{ kg}$, radio $R = 0.075\text{ m}$ (Disco sólido: $I = \frac{1}{2} M R^2$).</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>$$I = \frac{1}{2} (0.15\text{ kg})(0.075\text{ m})^2 = 0.5 \times 0.15 \times 0.005625 = 4.21875 \times 10^{-4}\text{ kg}\cdot\text{m}^2$$</p>
+                        <p>$$\alpha = \frac{\tau}{I} = \frac{6.4\text{ N}\cdot\text{m}}{4.21875 \times 10^{-4}\text{ kg}\cdot\text{m}^2} \approx \mathbf{15,170\text{ rad/s}^2}$$</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 59 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-purple-900/80 text-purple-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 59 - Pág. 291</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Torque neto para una esfera sólida</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Aceleración angular $\alpha = 20\text{ rad/s}^2$, radio $R = 0.20\text{ m}$, masa $M = 20\text{ kg}$ (Esfera sólida: $I = \frac{2}{5} M R^2$).</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>$$I = \frac{2}{5} (20\text{ kg})(0.20\text{ m})^2 = 0.4 \times 20 \times 0.04 = 0.32\text{ kg}\cdot\text{m}^2$$</p>
+                        <p>$$\tau = I \cdot \alpha = (0.32\text{ kg}\cdot\text{m}^2) \cdot (20\text{ rad/s}^2) = \mathbf{6.4\text{ N}\cdot\text{m}}$$</p>
+                    </div>
+                </div>
+
+                <!-- Ejercicio 62 -->
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
+                    <span class="bg-purple-900/80 text-purple-300 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Ejercicio 62 - Pág. 292</span>
+                    <h3 class="font-bold text-amber-400 text-sm">Torque neto sobre una rueda de la fortuna</h3>
+                    <p class="text-slate-300"><strong>Datos:</strong> Masa $M = 2000\text{ kg}$, reposo ($\omega_0 = 0$) a $\omega = 2.0\text{ rad/s}$ en $t = 12\text{ s}$, disco circular de $R = 30\text{ m}$.</p>
+                    <div class="bg-slate-900 p-3 rounded-xl font-mono text-cyan-200 space-y-1">
+                        <p>• Aceleración angular: $\alpha = \frac{\Delta \omega}{\Delta t} = \frac{2.0 - 0}{12} = \frac{1}{6} \approx 0.1667\text{ rad/s}^2$.</p>
+                        <p>• Momento de inercia (disco sólido): $I = \frac{1}{2} M R^2 = \frac{1}{2} (2000) (30)^2 = 1000 \times 900 = 900,000\text{ kg}\cdot\text{m}^2$.</p>
+                        <p>• Torque neto: $\tau = I \cdot \alpha = (900,000) \cdot \left(\frac{1}{6}\right) = \mathbf{150,000\text{ N}\cdot\text{m}} = \mathbf{1.5 \times 10^5\text{ N}\cdot\text{m}}$.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-xs text-slate-500 font-medium">
+        Laboratorio de Física 1 • Colegio Salesiano Don Bosco • ¡Suerte en el Examen!
+    </footer>
+
+    <script>
+        const monroyQuotes = [
+            { text: '"Recuerden entregar el laboratorio ordenado y con procedimiento completo"', icon: "📐", title: "PROFE ALDO" },
+            { text: '"El torque es positivo en sentido antihorario y negativo en sentido horario"', icon: "🔄", title: "REGLA DE SIGNOS" },
+            { text: '"En rodadura sin deslizamiento se cumple siempre que v = r * omega"', icon: "🚴", title: "CONCEPTO ROTACIÓN" },
+            { text: '"No olviden convertir los cm a metros antes de meter los datos a la fórmula"', icon: "🚨", title: "ADVERTENCIA" },
+            { text: '"Ortiz, deje de ver a Luisa y calcule la tensión T1"', icon: "👀", title: "DISCIPLINA" }
+        ];
+
+        function launchSpontaneousSurprise() {
+            const container = document.getElementById('toast-container');
+            const item = monroyQuotes[Math.floor(Math.random() * monroyQuotes.length)];
+            
+            const toast = document.createElement('div');
+            toast.className = "pop-toast bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white p-3.5 rounded-2xl shadow-2xl border-2 border-cyan-300 font-bold text-xs pointer-events-auto flex items-start justify-between gap-2";
+            
+            toast.innerHTML = `
+                <div>
+                    <span class="bg-slate-950 text-cyan-300 text-[9px] font-black uppercase px-2 py-0.5 rounded-full inline-block mb-1">
+                        ${item.icon} ${item.title}
+                    </span>
+                    <p class="text-white font-extrabold italic text-xs leading-snug">${item.text}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-white hover:text-slate-950 font-black text-sm">&times;</button>
+            `;
+            
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 6000);
+        }
+
+        setInterval(launchSpontaneousSurprise, 7500);
+        setTimeout(launchSpontaneousSurprise, 1500);
+    </script>
+</body>
+</html>
